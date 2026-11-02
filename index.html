@@ -1,0 +1,798 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#f5f5f7">
+
+    <title>خطة التوفل — 30 يوم</title>
+
+    <!-- Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="30.css">
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div>
+
+            <p class="eyebrow">
+                خطة الدراسة
+            </p>
+
+            <h1>
+                التوفل
+            </h1>
+
+            <p class="subtitle">
+                30 يومًا للاستعداد للاختبار
+            </p>
+
+        </div>
+
+
+        <!-- Theme Button -->
+
+        <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="تغيير المظهر"
+            type="button">
+
+            <span id="themeIcon">
+                ☾
+            </span>
+
+        </button>
+
+
+        <!-- Progress -->
+
+        <div class="progress-box">
+
+            <span id="progressText">
+                0%
+            </span>
+
+            <div class="progress-bar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+            <small id="completedText">
+                0 من 28 يوم
+            </small>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= TODAY ================= -->
+
+    <section class="today-card">
+
+        <div>
+
+            <span class="today-label">
+                اليوم الحالي
+            </span>
+
+            <h2 id="todayTitle">
+                اليوم 1
+            </h2>
+
+            <p id="todayStatus">
+                ابدأ أول يوم من خطتك
+            </p>
+
+        </div>
+
+
+        <button
+            id="todayButton"
+            class="complete-btn"
+            type="button">
+
+            <span>✓</span>
+            إكمال اليوم
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= PLAN ================= -->
+
+    <main>
+
+        <div class="section-heading">
+
+            <h2>
+                الخطة اليومية
+            </h2>
+
+            <span>
+                28 يومًا
+            </span>
+
+        </div>
+
+
+        <!-- Days will be generated here -->
+
+        <div
+            id="daysContainer"
+            class="days-grid">
+        </div>
+
+    </main>
+
+
+</div>
+
+<cintr>
+<h6>تم الاستناد من كتاب دليلك للتوفل الجديد من (عبدالرحمن حجازي)</h6>
+</cintr>
+<script>
+
+/* =========================================================
+   TOEFEL STUDY PLAN
+
+   المصدر: جدول المستخدم المرفق
+   الأسبوع 1 = القراءة
+   الأسبوع 2 = الاستماع
+   الأسبوع 3 = الكتابة
+   الأسبوع 4 = المحادثة
+========================================================= */
+
+
+const studyPlan = [
+
+    /* =====================================================
+       الأسبوع الأول — القراءة
+    ===================================================== */
+
+    {
+        day: 1,
+
+        section: "قسم القراءة",
+
+        task: "تعرّف على القسم والتكنيكات"
+    },
+
+    {
+        day: 2,
+
+        section: "قسم القراءة",
+
+        task: "تدريبات إكمال الفراغات"
+    },
+
+    {
+        day: 3,
+
+        section: "قسم القراءة",
+
+        task: "تدريبات نصوص Life Daily"
+    },
+
+    {
+        day: 4,
+
+        section: "قسم القراءة",
+
+        task: "تدريبات Academic Passages"
+    },
+
+    {
+        day: 5,
+
+        section: "قسم القراءة",
+
+        task: "اختبار تجريبي كامل للقراءة"
+    },
+
+    {
+        day: 6,
+
+        section: "قسم القراءة",
+
+        task: "اختبار تجريبي كامل للقراءة"
+    },
+
+    {
+        day: 7,
+
+        section: "قسم القراءة",
+
+        task: "اختبار تجريبي كامل للقراءة"
+    },
+
+
+    /* =====================================================
+       الأسبوع الثاني — الاستماع
+    ===================================================== */
+
+    {
+        day: 8,
+
+        section: "قسم الاستماع",
+
+        task: "تعرّف على القسم والتكنيكات"
+    },
+
+    {
+        day: 9,
+
+        section: "قسم الاستماع",
+
+        task: "Listen and Choose تدريبات"
+    },
+
+    {
+        day: 10,
+
+        section: "قسم الاستماع",
+
+        task: "تدريبات Conversations"
+    },
+
+    {
+        day: 11,
+
+        section: "قسم الاستماع",
+
+        task: "تدريبات Announcements"
+    },
+
+    {
+        day: 12,
+
+        section: "قسم الاستماع",
+
+        task: "Academic Talks تدريبات"
+    },
+
+    {
+        day: 13,
+
+        section: "قسم الاستماع",
+
+        task: "اختبار تجريبي كامل للاستماع"
+    },
+
+    {
+        day: 14,
+
+        section: "قسم الاستماع",
+
+        task: "اختبار تجريبي كامل للاستماع"
+    },
+
+
+    /* =====================================================
+       الأسبوع الثالث — الكتابة
+    ===================================================== */
+
+    {
+        day: 15,
+
+        section: "قسم الكتابة",
+
+        task: "تعرّف على القسم والتكنيكات"
+    },
+
+    {
+        day: 16,
+
+        section: "قسم الكتابة",
+
+        task: "Build a Sentence تدريبات"
+    },
+
+    {
+        day: 17,
+
+        section: "قسم الكتابة",
+
+        task: "تدريبات Email"
+    },
+
+    {
+        day: 18,
+
+        section: "قسم الكتابة",
+
+        task: "Academic Discussion تدريبات"
+    },
+
+    {
+        day: 19,
+
+        section: "قسم الكتابة",
+
+        task: "اختبار تجريبي كامل للكتابة"
+    },
+
+    {
+        day: 20,
+
+        section: "قسم الكتابة",
+
+        task: "اختبار تجريبي كامل للكتابة"
+    },
+
+    {
+        day: 21,
+
+        section: "قسم الكتابة",
+
+        task: "اختبار تجريبي كامل للكتابة"
+    },
+
+
+    /* =====================================================
+       الأسبوع الرابع — المحادثة
+    ===================================================== */
+
+    {
+        day: 22,
+
+        section: "قسم المحادثة",
+
+        task: "تعرّف على القسم والتكنيكات"
+    },
+
+    {
+        day: 23,
+
+        section: "قسم المحادثة",
+
+        task: "Listen and Repeat تدريبات"
+    },
+
+    {
+        day: 24,
+
+        section: "قسم المحادثة",
+
+        task: "تدريبات Interview"
+    },
+
+    {
+        day: 25,
+
+        section: "قسم المحادثة",
+
+        task: "اختبار تجريبي كامل للمحادثة"
+    },
+
+    {
+        day: 26,
+
+        section: "قسم المحادثة",
+
+        task: "اختبار توفل تجريبي كامل"
+    },
+
+    {
+        day: 27,
+
+        section: "قسم المحادثة",
+
+        task: "اختبار توفل تجريبي كامل"
+    },
+
+    {
+        day: 28,
+
+        section: "قسم المحادثة",
+
+        task: "اختبار توفل تجريبي كامل"
+    }
+
+];
+
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+const container =
+    document.getElementById("daysContainer");
+
+const progressText =
+    document.getElementById("progressText");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const completedText =
+    document.getElementById("completedText");
+
+const todayTitle =
+    document.getElementById("todayTitle");
+
+const todayStatus =
+    document.getElementById("todayStatus");
+
+const todayButton =
+    document.getElementById("todayButton");
+
+
+
+/* =========================================================
+   COMPLETED DAYS
+========================================================= */
+
+let completedDays =
+    JSON.parse(
+        localStorage.getItem("toeflCompletedDays")
+    ) || [];
+
+
+
+/* =========================================================
+   RENDER DAYS
+========================================================= */
+
+function renderDays() {
+
+    container.innerHTML = "";
+
+
+    studyPlan.forEach(item => {
+
+        const completed =
+            completedDays.includes(item.day);
+
+
+        const card =
+            document.createElement("article");
+
+
+        card.className =
+            `day-card ${completed ? "completed" : ""}`;
+
+
+        card.innerHTML = `
+
+            <div class="day-number">
+
+                <span>
+                    ${item.day}
+                </span>
+
+            </div>
+
+
+            <div class="day-content">
+
+
+                <div class="day-header">
+
+
+                    <div>
+
+                        <span class="day-label">
+                            ${item.section}
+                        </span>
+
+                        <h3>
+                            اليوم ${item.day}
+                        </h3>
+
+                    </div>
+
+
+                    <button
+                        class="check-button"
+                        type="button"
+                        aria-label="إكمال اليوم ${item.day}"
+                        onclick="toggleDay(${item.day})">
+
+                        ${completed ? "✓" : ""}
+
+                    </button>
+
+
+                </div>
+
+
+                <div class="tasks">
+
+                    <div class="task">
+
+                        <span class="task-dot"></span>
+
+                        <span>
+                            ${item.task}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+
+    updateProgress();
+
+}
+
+
+
+/* =========================================================
+   TOGGLE DAY
+========================================================= */
+
+function toggleDay(day) {
+
+
+    if (completedDays.includes(day)) {
+
+        completedDays =
+            completedDays.filter(
+                d => d !== day
+            );
+
+    } else {
+
+        completedDays.push(day);
+
+    }
+
+
+    localStorage.setItem(
+        "toeflCompletedDays",
+        JSON.stringify(completedDays)
+    );
+
+
+    renderDays();
+
+    updateToday();
+
+}
+
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+
+    const totalDays =
+        studyPlan.length;
+
+
+    const completed =
+        completedDays.filter(
+            day =>
+                studyPlan.some(
+                    item => item.day === day
+                )
+        ).length;
+
+
+    const percentage =
+        Math.round(
+            (completed / totalDays) * 100
+        );
+
+
+    progressText.textContent =
+        `${percentage}%`;
+
+
+    completedText.textContent =
+        `${completed} من ${totalDays} يوم`;
+
+
+    progressFill.style.width =
+        `${percentage}%`;
+
+}
+
+
+
+/* =========================================================
+   CURRENT DAY
+========================================================= */
+
+function updateToday() {
+
+
+    let nextDay = null;
+
+
+    for (const item of studyPlan) {
+
+        if (!completedDays.includes(item.day)) {
+
+            nextDay = item.day;
+
+            break;
+
+        }
+
+    }
+
+
+    /* كل الأيام مكتملة */
+
+    if (nextDay === null) {
+
+        todayTitle.textContent =
+            "اكتملت الخطة 🎉";
+
+
+        todayStatus.textContent =
+            "أنهيت جميع الأيام الموجودة في الجدول";
+
+
+        todayButton.innerHTML =
+            "<span>✓</span> مكتملة";
+
+
+        todayButton.disabled =
+            true;
+
+
+        return;
+
+    }
+
+
+    const current =
+        studyPlan.find(
+            item => item.day === nextDay
+        );
+
+
+    todayTitle.textContent =
+        `اليوم ${current.day}`;
+
+
+    todayStatus.textContent =
+        `${current.section} — ${current.task}`;
+
+
+    todayButton.disabled =
+        false;
+
+
+    todayButton.innerHTML =
+        "<span>✓</span> إكمال اليوم";
+
+
+    todayButton.onclick =
+        () => toggleDay(nextDay);
+
+}
+
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const themeToggle =
+    document.getElementById("themeToggle");
+
+const themeIcon =
+    document.getElementById("themeIcon");
+
+
+const savedTheme =
+    localStorage.getItem("toeflTheme") ||
+    "light";
+
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeIcon.textContent =
+        "☀";
+
+}
+
+
+
+/* =========================================================
+   CHANGE THEME
+========================================================= */
+
+themeToggle.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle("dark");
+
+
+        const isDark =
+            document.body.classList.contains("dark");
+
+
+        if (isDark) {
+
+            themeIcon.textContent =
+                "☀";
+
+            localStorage.setItem(
+                "toeflTheme",
+                "dark"
+            );
+
+        } else {
+
+            themeIcon.textContent =
+                "☾";
+
+            localStorage.setItem(
+                "toeflTheme",
+                "light"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderDays();
+
+updateToday();
+
+</script>
+
+</body>
+
+</html>
+```
